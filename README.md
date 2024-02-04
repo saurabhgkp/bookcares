@@ -2,7 +2,21 @@
 Book Store Application(bookcares)
 This is a sample bookstore project implemented in Node.js using Express, Mongoose, Bull, and Nodemailer.
 Login and Registration System with Full Validation, Tokens, Super Admin, OTP-Based Forgot Password, Notifications, Books CRUD, User Requests, Roles & Permissions, and User Activity Log.
+### Set up your database and environment variables.   
+ ### .env
+```
+CONNECTION_URL="mongodb+srv://###"
 
+PORT = 4000
+
+JWT_SECRET="saurabh"
+
+USER_EMAIL=your@gmail.com
+
+USER_PASSWORD= mfalyqlhbn
+
+BASEURL='http://localhost:4000/v1/'
+```
 ### `SellCount Logic`
 
 The `sellCount` attribute is computed dynamically based on the purchase history. It represents the total number of times a book has been sold. The logic involves querying the purchase history for the specific book and summing up the quantities purchased.
