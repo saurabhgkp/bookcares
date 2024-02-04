@@ -3,7 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const Book = require("../models/Book");
 const Purchase = require("../models/Purchase");
 const uploadEmail = require("../processors/uploadEmail");
-const revenueIncrease = require("../utils/revenueIncrease");
+// const revenueIncrease = require("../utils/revenueIncrease");
 const User = require('../models/usres');
 function generatePurchaseId() {
     return `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-1`;
@@ -28,9 +28,11 @@ const asyncMiddlewareAuth = (handler) => {
 }
 
 exports.createCheckoutSession = asyncMiddlewareAuth(async (req, res) => {
-    console.log(req.body, "req.body")
+
     const { bookId, quantity, userId } = req.body
-    let priceRs = await Book.findOne({ bookId }, { price: 1, _id: 0 });
+    console.log(bookId, "bookId");
+    let priceRs = await Book.findOne({ _id: bookId }, { price: 1, title: 1, _id: 0 });
+    console.log(priceRs.price, "priceRs");
     // Create a Checkout Session for a single book in Indian Rupees (INR)
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -38,10 +40,10 @@ exports.createCheckoutSession = asyncMiddlewareAuth(async (req, res) => {
             price_data: {
                 currency: 'inr', // Set currency to Indian Rupee
                 product_data: {
-                    name: "book", // Replace with actual product name
+                    name: priceRs.title, // Replace with actual product name
                 },
 
-                unit_amount: priceRs * 100, // Replace with actual price in paise (e.g., 1000 INR = 100000 paise)
+                unit_amount: priceRs.price * 100, // Replace with actual price in paise (e.g., 1000 INR = 100000 paise)
             },
             quantity: quantity || 1, // Default to 1 if quantity is not provided
         }],
@@ -51,8 +53,9 @@ exports.createCheckoutSession = asyncMiddlewareAuth(async (req, res) => {
         client_reference_id: userId, // Store the userId in the client_reference_id
         // reference_bookId: bookId
     })
-
-    // res.json({ sessionId: session.id })
+    console.log(session.url, "req.body")
+    // return res.redirect(303, session.url);
+    res.json({ paymentUrl: session.url })
 })
 
 exports.webhook = asyncMiddlewareAuth(async (req, res) => {

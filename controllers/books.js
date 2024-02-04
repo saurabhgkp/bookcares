@@ -1,7 +1,7 @@
 const Book = require("../models/Book");
 const User = require('../models/usres');
 const uploadEmail = require("../processors/uploadEmail");
-const bookReleases = require("../worker/bookReleases");
+// const bookReleases = require("../worker/bookReleases");
 
 const asyncMiddlewareAuth = (handler) => {
     return async (req, res, next) => {
