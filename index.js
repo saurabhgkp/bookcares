@@ -16,12 +16,7 @@ const uploadEmailQueue = new Queue('Email Queue', redisUrl);
 
 uploadEmailQueue.process((job) => runWatchProcessor(job));
 
-// if you want to schedule a cron job //
-// uploadEmailQueue.add(null, { repeat: { cron: "0 0 * * *" } });
 
-// if you want to use as exported module //
-// const { uploadEmailQueue } = require("..");
-// uploadEmailQueue.add({data: "tushar"})
 
 module.exports = {
     uploadEmailQueue,
