@@ -118,9 +118,11 @@ Horizontal Scaling: MongoDB allows for horizontal scaling through sharding. Cons
 Separate Collection for Email Queue: The decision to have a separate collection for email notifications in the job queue (Bull) ensures a clean separation of concerns and facilitates easy monitoring and management of email-related jobs.
 
 
- ![ image info](./img/New Book Notification.png)
   <!-- ![ image info](./img/otp.png) ![ image info](./img/verification1.png) -->
+  ![ image info](./img/verificationmail.png)
   ![ image info](./img/otp.png)
+ ![ image info](./img/NewBookNotification.png)
+  ![ image info](./img/paym.png)
 ## Introduction
 
 This project is a comprehensive implementation of a login and registration system with various features such as full validation, JWT tokens for secure authentication, Super Admin functionality, OTP-based forgot password, notifications, CRUD operations for books, user book purchase, roles & permissions, and user purchase logging. stripe payment gateway.
